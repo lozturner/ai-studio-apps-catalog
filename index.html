@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google AI Studio Apps Catalog - Loz Turner</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 3px solid #667eea;
+        }
+        h1 {
+            font-size: 3em;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            font-size: 1.2em;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        .stat {
+            background: #f0f4ff;
+            padding: 15px 30px;
+            border-radius: 10px;
+        }
+        .stat-num {
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        .card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+            border-color: #667eea;
+        }
+        .card h3 {
+            font-size: 1.3em;
+            margin-bottom: 12px;
+            color: #667eea;
+        }
+        .card h3 a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        .card h3 a:hover {
+            text-decoration: underline;
+        }
+        .description {
+            color: #555;
+            font-size: 0.95em;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        .meta {
+            font-size: 0.85em;
+            color: #999;
+            padding-top: 10px;
+            border-top: 1px solid #e0e0e0;
+        }
+        .badge {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.75em;
+            margin-top: 10px;
+        }
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 2px solid #e0e0e0;
+            color: #666;
+        }
+        .search-box {
+            margin: 30px 0;
+            text-align: center;
+        }
+        .search-box input {
+            width: 100%;
+            max-width: 600px;
+            padding: 15px 25px;
+            font-size: 1.1em;
+            border: 2px solid #e0e0e0;
+            border-radius: 50px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        .search-box input:focus {
+            border-color: #667eea;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🤖 Google AI Studio Apps Catalog</h1>
+            <p class="subtitle">Loz Turner's Collection of AI-Powered Applications</p>
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-num">260+</div>
+                    <div>Total Apps</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-num">50</div>
+                    <div>Shown Below</div>
+                </div>
+            </div>
+        </header>
+
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="🔍 Search apps by title or description..." onkeyup="filterApps()">
+        </div>
+
+        <div class="grid" id="appsGrid">
+            <!-- Apps will be inserted here by JavaScript -->
+        </div>
+
+        <footer>
+            <p>🚀 <strong>Created by Loz Turner</strong> | <a href="https://github.com/lozturner/ai-studio-apps-catalog" target="_blank">View on GitHub</a></p>
+            <p style="margin-top:10px; font-size:0.9em;">Run <code>node scraper.js</code> to extract all 260 apps automatically</p>
+        </footer>
+    </div>
+
+    <script>
+        const apps = [
+            {title:"TeleLens: Telegram Analysis Dashboard",url:"https://aistudio.google.com/apps/drive/1Lc2tthpzrTJUobfzd76OIeoyUxOIO_OP?showPreview=true&showAssistant=true",description:"Transform messy Telegram chat exports into organized, actionable insights with AI-powered categorization and task tracking.",modified:"2 days ago"},
+            {title:"Coming Out Swinging Manifesto",url:"https://aistudio.google.com/apps/drive/1WROh1VJ3JBx0uR3Hg9PMoLQJLuZL6MRn?showPreview=true&showAssistant=true",description:"An interactive manifesto and toolkit for reclaiming autonomy through AI-assisted creation and the 'See-Articulate-Build-Use' loop.",modified:"6 days ago"},
+            {title:"InclusiveFlow AI",url:"https://aistudio.google.com/apps/drive/1CyBWMHbU8Yk2JI0YdQnNY7XkJorgFPwo?showPreview=true&showAssistant=true",description:"A communication tool designed for neurodivergent individuals and those with verbal tics to transform raw, unfiltered thoughts into professional, structured communication.",modified:"6 days ago"},
+            {title:"Idea Incubator AI",url:"https://aistudio.google.com/apps/drive/1z5eO0iMbELHNz1oIGR1ILzOlqWM3INho?showPreview=true&showAssistant=true",description:"A collaborative idea feedback collector enhanced with Gemini AI to generate and curate innovative concepts.",modified:"Dec 3, 2025"},
+            {title:"VectorFlow Sim",url:"https://aistudio.google.com/apps/drive/1ytooHQdHJQdVg6-0oyh2qhFWFOvzBwt5?showPreview=true&showAssistant=true",description:"A text-to-SVG motion simulator that converts user text into vector paths using AI, then simulates a mouse cursor drawing the output in real-time.",modified:"Nov 21, 2025"},
+            {title:"AI Timeline Machine",url:"https://aistudio.google.com/apps/drive/1iax_5ZIfiwcIJTwF85mzsdcIUEJwa5hi?showPreview=true&showAssistant=true",description:"An application that takes a diary entry, and with the help of AI, generates a horizontal timeline visualizing the events, related thoughts, and parallel contextual happenings.",modified:"Nov 20, 2025"},
+            {title:"Finish Line AI",url:"https://aistudio.google.com/apps/drive/1hGlkXhf1b8Uv3matOr9DWPG3MNo2r8uO?showPreview=true&showAssistant=true",description:"An AI-powered application to help users define and visualize what 'finished' looks like for their projects or goals by generating business canvases, kanban boards, and more.",modified:"Nov 20, 2025"},
+            {title:"AI Workflow Architect",url:"https://aistudio.google.com/apps/drive/1fPVuwLWIDf7A5V_90rOKKsiNe4tEp1OQ?showPreview=true&showAssistant=true",description:"A conversational UI that helps users design complex workflows using natural language. Describe your goal, and the AI assistant will suggest a structured plan using available tools, visualizing it on a canvas for you.",modified:"Oct 23, 2025"},
+            {title:"Data Visualization Showcase",url:"https://aistudio.google.com/apps/drive/1lUqM9F1eMg9NRZ0YUyu3ZlqCUxSpovKM?showPreview=true&showAssistant=true",description:"An interactive showcase of various data visualization methods, from common charts to specialized diagrams, presented in a clear and visually appealing format.",modified:"Oct 23, 2025"},
+            {title:"Rant Transformer",url:"https://aistudio.google.com/apps/drive/19-5YshY9os_22vURpomrNgTn5D0HDd2g?showPreview=true&showAssistant=true",description:"An application inspired by prompt chaining UIs that transforms negative user rants into positive, supportive responses using the Gemini API.",modified:"Sep 6, 2025"},
+            {title:"AI Health Symptom Reasoner",url:"https://aistudio.google.com/apps/drive/1U1yyeVtKbj9aXkVh69pKi4KDAK1m8xdl?showPreview=true&showAssistant=true",description:"An AI-powered tool to analyze health symptoms from a user's description, organize them into a Kanban-style board, and suggest possible connections.",modified:"Sep 6, 2025"},
+            {title:"Binary Chord Typer",url:"https://aistudio.google.com/apps/drive/14sXlBh_kpfd_HXxt84EuoUeykvgid5mA?showPreview=true&showAssistant=true",description:"A five-finger touchscreen typing application that uses binary chords for input, similar to a stenotype.",modified:"Aug 30, 2025"},
+            {title:"AI Context Clipboard",url:"https://aistudio.google.com/apps/drive/1dx1NRB1dFKG88WQUYVFO5v0GJSXplnJx?showPreview=true&showAssistant=true",description:"A powerful clipboard manager to organize snippets, notes, and code, and to generate structured JSON context for AI models.",modified:"Aug 20, 2025"},
+            {title:"Motivation Lens: Extrinsic vs. Intrinsic",url:"https://aistudio.google.com/apps/drive/1VVFI-OYAwfu5egYoD3Bb7JSL5we31LZq?showPreview=true&showAssistant=true",description:"An interactive, split-screen application that uses AI to generate stories illustrating the difference between extrinsic and intrinsic motivations.",modified:"Aug 18, 2025"},
+            {title:"Self-Prompting AI",url:"https://aistudio.google.com/apps/drive/1HVcjy-w4zL3uXtwzjf5AbmLsPazEy2rH?showPreview=true&showAssistant=true",description:"An experiment in conversational evolution where an AI's output becomes its own new instruction, creating a continuous feedback loop.",modified:"Aug 16, 2025"},
+            {title:"VR Teleprompter Concept",url:"https://aistudio.google.com/apps/drive/1eLX_ZC4MIEr24PGpN88yIv_Io7BflBg0?showPreview=true&showAssistant=true",description:"A conceptual demonstration of a VR teleprompter that transcribes speech in real-time and visualizes sentence structure on a floating glass-style UI.",modified:"Aug 15, 2025"},
+            {title:"VoiceNote Canvas",url:"https://aistudio.google.com/apps/drive/1U9zKqQFGvGT01UG_n0oMdSgBDYsnIFhp?showPreview=true&showAssistant=true",description:"A digital notebook where you can double-click anywhere to create a text box and dictate your notes hands-free using your microphone.",modified:"Aug 15, 2025"},
+            {title:"AI Contextual Chat Assistant",url:"https://aistudio.google.com/apps/drive/1eVYRc2eh2YWcMldAUWg6nHlgo6T6kj1X?showPreview=true&showAssistant=true",description:"An AI chat assistant that uses user-provided text boxes as a dynamic knowledge base.",modified:"Aug 13, 2025"},
+            {title:"Quest Unlocker",url:"https://aistudio.google.com/apps/drive/1RS7r7ppbeWBpQJ9q0Ai4LECXnjvTqncx?showPreview=true&showAssistant=true",description:"A visual tool to manage and track task dependencies. Complete available quests to unlock new ones.",modified:"Aug 13, 2025"},
+            {title:"AI Workflow Visualizer",url:"https://aistudio.google.com/apps/drive/18ro-F1VT8VvX2SsXWux04czvjKTzcjhb?showPreview=true&showAssistant=true",description:"A drag-and-drop canvas to visually build, edit, and understand multi-step AI tasks and pipelines.",modified:"Aug 13, 2025"}
+        ];
+
+        function renderApps() {
+            const grid = document.getElementById('appsGrid');
+            grid.innerHTML = apps.map(app => `
+                <div class="card">
+                    <h3><a href="${app.url}" target="_blank">${app.title}</a></h3>
+                    <div class="description">${app.description}</div>
+                    <div class="meta">
+                        <span>📅 Modified: ${app.modified}</span>
+                        <span class="badge">✨ AI-Powered</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterApps() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const cards = document.querySelectorAll('.card');
+            cards.forEach((card, idx) => {
+                const app = apps[idx];
+                const matches = app.title.toLowerCase().includes(searchTerm) || 
+                              app.description.toLowerCase().includes(searchTerm);
+                card.style.display = matches ? 'block' : 'none';
+            });
+        }
+
+        renderApps();
+    </script>
+</body>
+</html>
